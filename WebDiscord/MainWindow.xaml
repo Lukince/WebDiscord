@@ -1,0 +1,92 @@
+﻿<Window x:Class="WebDiscord.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WebDiscord"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1024"
+        WindowStyle="None"
+        Background="#202225"
+        AllowsTransparency="True"
+        >
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome x:Name="MainChrome"
+            CaptionHeight="0"
+            CornerRadius="0"
+            ResizeBorderThickness="4"
+            GlassFrameThickness="0"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <BitmapImage x:Key="Minimum" UriSource="/Resources/Minimum.png"/>
+        <BitmapImage x:Key="Maximum" UriSource="/Resources/Maximum.png" />
+        <BitmapImage x:Key="Exit" UriSource="/Resources/Exit.png" />
+
+        <Style x:Key="ButtonBase" TargetType="Button" >
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#282B2E"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ExitButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#ED4245" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid MouseDown="Grid_MouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="28"/>
+                <ColumnDefinition Width="28"/>
+                <ColumnDefinition Width="28"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="DISCORD" Foreground="#72767D" FontSize="12" FontWeight="Black"
+                       FontFamily="Noto Sans CJK KR"
+                       VerticalAlignment="Center" Margin="7,0"/>
+            <Button Grid.Column="1" Style="{StaticResource ButtonBase}"
+                    Click="Button_Click">
+                <Image Source="{StaticResource Minimum}" Margin="9,-2" VerticalAlignment="Bottom"/>
+            </Button>
+            <Button Grid.Column="2" Style="{StaticResource ButtonBase}"
+                    Click="Button_Click_1">
+                <Image Source="{StaticResource Maximum}" Margin="6"/>
+            </Button>
+            <Button Grid.Column="3" Style="{StaticResource ExitButton}"
+                    Click="Button_Click_2">
+                <Image Source="{StaticResource Exit}" Margin="6.5"/>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
